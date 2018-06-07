@@ -1,3 +1,166 @@
-<h1>
-  {{title}}
-</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!--Internet explorer-->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!--first Mobile Meta-->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Main Page</title>
+
+  <!--bootstrap stylesheet-->
+  <link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" href="../bootstrap/css/font-awesome.min.css">
+  <!--&lt;!&ndash;this is my style .. This is more strong&ndash;&gt;-->
+  <!--<link rel="stylesheet" href="css/style.css">-->
+
+  <!--[if lt IE 9]>
+  <script src="../bootstrap/js/html5shiv.min.js"></script>
+  <script src="../bootstrap/js/respond.min.js"></script>
+  <![endif]-->
+
+</head>
+
+
+<body>
+
+<!--<h1>-->
+<!--{{title}}-->
+
+<!--</h1>-->
+
+
+<header>
+
+  <span class="label label-info text-center">Crud Application Angular with springboot </span>
+
+</header>
+
+
+<section class="addform">
+
+  <h3>Add Task Form </h3>
+
+
+  <div class="container">
+
+    <div class="col-md-8 col-md-offset-2">
+      <form>
+        <div class="form-group">
+          <input type="hidden" class="form-control"
+                 [(ngModel)]="model.taskId" name="taskId"
+                 #taskId="ngModel">
+
+        </div>
+
+        <div class="form-group">
+          <label for="exampleTaskName">Task Name </label>
+          <input type="text" class="form-control" id="exampleTaskName" aria-describedby="emailHelp"
+                 placeholder="Enter TaskName" required minlength="4" appForbiddenName="bobbob"
+                 [(ngModel)]="model.taskName" name="taskName"
+                 #taskName="ngModel"
+          >
+          <!-- start for validation -->
+          <div *ngIf="taskName.invalid && (taskName.dirty || taskName.touched)"
+               class="alert alert-danger">
+
+            <div *ngIf="taskName.errors.required">
+              Name is required.
+            </div>
+            <div *ngIf="taskName.errors.minlength">
+              Name must be at least 4 characters long.
+            </div>
+            <div *ngIf="taskName.errors.forbiddenName">
+              Name cannot be Bob.
+            </div>
+
+          </div>
+          <!-- End for validation -->
+
+        </div>
+        <div class="form-group">
+          <label for="exampleTaskDescription">Task Description</label>
+          <textarea class="form-control" id="exampleTaskDescription" placeholder="Enter description"
+                    rows="3"
+                    [(ngModel)]="model.taskDesc" name="exampleTaskDescription"
+                    required minlength="10"
+                    [(ngModel)]="model.taskDesc" name="taskDesc"
+                    #taskDesc="ngModel"
+          ></textarea>
+
+          <!-- start for validation -->
+          <div *ngIf="taskDesc.invalid && (taskDesc.dirty || taskDesc.touched)"
+               class="alert alert-danger">
+
+            <div *ngIf="taskDesc.errors.required">
+              Desc is required.
+            </div>
+            <div *ngIf="taskDesc.errors.minlength">
+              Desc must be at least 10 characters long.
+            </div>
+            <div *ngIf="taskDesc.errors.forbiddenName">
+              Desc cannot be Bob.
+            </div>
+
+          </div>
+          <!-- End for validation -->
+
+        </div>
+
+        <button [ngClass]="{disabled : !isValidAdd}" (click)="isValidUpdate && onClickMe()" type="submit"
+                class="btn btn-primary">Add Task
+        </button>
+        <label class="label-primary">{{clickMessage}}</label>
+        <button [ngClass]="{disabled : !isValidUpdate}" (click)="isValidUpdate && onClickUpdateMe()" type="submit"
+                class="btn btn-info">Update Task
+        </button>
+
+      </form>
+    </div>
+
+
+  </div>
+
+
+</section>
+
+<section class="displayAll">
+  <div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading text-capitalize text-center">List Of Tasks</div>
+
+
+    <!-- Table -->
+    <table #tableData class="table table-striped table-bordered table-hover table-responsive table-fixed ">
+
+      <tr>
+        <th>Task Name</th>
+        <th>Task Description</th>
+      </tr>
+
+      <tr *ngFor='let lst of tasks; let i = index'>
+        <td> {{lst.taskName}}</td>
+        <td>{{lst.taskDesc}}</td>
+        <td>
+          <button class="btn btn-danger" type="button" (click)="deleteFieldValue(i , lst.id)">Delete</button>
+        </td>
+        <td>
+          <button class="btn btn-primary" type="button" (click)="updateFieldValue(i , lst.id)">Update</button>
+        </td>
+      </tr>
+
+    </table>
+  </div>
+
+
+</section>
+<!--<div *ngFor = 'let lst of tasks'>-->
+<!--<ul>-->
+<!--<li class="label-primary">{{lst.taskName}}</li>-->
+<!--<li class="label-primary">{{lst.taskDesc}}</li>-->
+<!--</ul>-->
+<!--</div>-->
+
+</body>
+
+</html>
